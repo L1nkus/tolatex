@@ -291,17 +291,26 @@ int main(){
                     /* cout << "R_{" << x + 1 << "} - " << -it->second << " R_{" << x + 1 << "} "; */
                     if (it->second.licz >= 0) {
                         if (it->second != fraction(1,1))
-                            cout << "R_{" << x + 1 << "} + " << it->second << " R_{" << x + 1 << "} ";
-                        else
-                            cout << "R_{" << x + 1 << "} + R_{" << x + 1 << "} ";
+                            /* cout << "R_{" << x + 1 << "} + " << it->second << " R_{" << x + 1 << "} "; */
+                            cout << it->second << " R_{" << x + 1 << "} ";
+                        // That was redundant (or wrong, bo x2 zamiast x1).
+                        // Actually, nie w tym był problem, lecz w tym, że
+                        // tutaj nie chcemy dodawać siebię do siebie, lecz
+                        // skalować siebie.
+                        // -> Pomijanie, gdy jest (1,1), a tak poza tym, to
+                        // usunięcie pierwotnego pierwszego składnika sumy.
+                        /* else */
+                        /*     cout << "R_{" << x + 1 << "} + R_{" << x + 1 << "} "; */
                     }
                     else {
                         if (-it->second != fraction(1,1)) {
-                            cout << "R_{" << x + 1 << "} - " << -it->second << " R_{" << x + 1 << "} ";
+                            /* cout << "R_{" << x + 1 << "} - " << -it->second << " R_{" << x + 1 << "} "; */
+                            cout << -it->second << " R_{" << x + 1 << "} ";
                         }
-                        else {
-                            cout << "R_{" << x + 1 << "} - R_{" << x + 1 << "} ";
-                        }
+                        // That was redundant (or wrong, bo x2 zamiast x1).
+                        /* else { */
+                        /*     cout << "R_{" << x + 1 << "} - R_{" << x + 1 << "} "; */
+                        /* } */
                     }
                 }
                 cout << "\\\\\n";
