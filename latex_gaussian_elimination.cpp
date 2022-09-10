@@ -110,6 +110,7 @@ string header = R"(
     \usepackage{amsmath}
     \usepackage{array}
     \allowdisplaybreaks
+
     \makeatletter
     \newcounter{elimination@steps}
     \newcolumntype{R}[1]{>{\raggedleft\arraybackslash$}p{#1}<{$}}
@@ -163,23 +164,11 @@ string sample = R"(
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);
     int n,m;
-    int xx;
-    /* cin >> n >> m; */
-    cin >> n >> xx;
-    m = n;
+    cin >> n >> m;
     fraction mat[n][m];
-    /* int a[n], b[m]; */
-    /* int64_t a[n], b[m]; */
-    /* for(int i = 0; i < n; ++i) */
-    /*     cin >> a[i]; */
-    /* for(int i = 0; i < m; ++i) */
-    /*     cin >> b[i]; */
     for (int i = 0; i < n; ++i)
         for (int x = 0; x < m; ++x)
             cin >> mat[i][x];
-            /* mat[i][x] = fraction(a[i] * b[x],1); */
-    /* for(int i = 0; i < n; ++i) */
-    /*     mat[i][i] += fraction(xx,1); */
     /* string beg = "\\begin{elimination}{" + to_string(m) +  "}{1.75em}{1.1}"; */
     cout <<  "\\begin{elimination}{" << m << "}{1.75em}{1.1}\n";
     /* for (int i = 0; i < min(n,m); ++i) { */
@@ -302,17 +291,26 @@ int main(){
                     /* cout << "R_{" << x + 1 << "} - " << -it->second << " R_{" << x + 1 << "} "; */
                     if (it->second.licz >= 0) {
                         if (it->second != fraction(1,1))
-                            cout << "R_{" << x + 1 << "} + " << it->second << " R_{" << x + 1 << "} ";
-                        else
-                            cout << "R_{" << x + 1 << "} + R_{" << x + 1 << "} ";
+                            /* cout << "R_{" << x + 1 << "} + " << it->second << " R_{" << x + 1 << "} "; */
+                            cout << it->second << " R_{" << x + 1 << "} ";
+                        // That was redundant (or wrong, bo x2 zamiast x1).
+                        // Actually, nie w tym był problem, lecz w tym, że
+                        // tutaj nie chcemy dodawać siebię do siebie, lecz
+                        // skalować siebie.
+                        // -> Pomijanie, gdy jest (1,1), a tak poza tym, to
+                        // usunięcie pierwotnego pierwszego składnika sumy.
+                        /* else */
+                        /*     cout << "R_{" << x + 1 << "} + R_{" << x + 1 << "} "; */
                     }
                     else {
                         if (-it->second != fraction(1,1)) {
-                            cout << "R_{" << x + 1 << "} - " << -it->second << " R_{" << x + 1 << "} ";
+                            /* cout << "R_{" << x + 1 << "} - " << -it->second << " R_{" << x + 1 << "} "; */
+                            cout << -it->second << " R_{" << x + 1 << "} ";
                         }
-                        else {
-                            cout << "R_{" << x + 1 << "} - R_{" << x + 1 << "} ";
-                        }
+                        // That was redundant (or wrong, bo x2 zamiast x1).
+                        /* else { */
+                        /*     cout << "R_{" << x + 1 << "} - R_{" << x + 1 << "} "; */
+                        /* } */
                     }
                 }
                 cout << "\\\\\n";
@@ -375,3 +373,4 @@ int main(){
     /* cout << '\n'; */
     /* } */
 }
+
